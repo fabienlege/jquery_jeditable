@@ -1,5 +1,9 @@
 h3. Changelog
 
+h4. 1.7.4
+
+* Add a callback on element focussed
+
 h4. 1.7.3
 
 * Add support for "jQuery plugin repository":http://plugins.jquery.com/

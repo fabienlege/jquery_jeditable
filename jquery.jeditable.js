@@ -15,7 +15,7 @@
  */
 
 /**
-  * Version 1.7.3
+  * Version 1.7.4
   *
   * ** means there is basic unit tests for this parameter. 
   *
@@ -25,6 +25,7 @@
   * @param Hash    options            additional options 
   * @param String  options[method]    method to use to send edited content (POST or PUT) **
   * @param Function options[callback] Function to run after submitting edited content **
+  * @param Function options[loaded]     Function to run when form is rendered **
   * @param String  options[name]      POST parameter name of edited content
   * @param String  options[id]        POST parameter name of edited div id
   * @param Hash    options[submitdata] Extra parameters to send when submitting edited content.
@@ -91,6 +92,7 @@
         var reset    = $.editable.types[settings.type].reset 
                     || $.editable.types['defaults'].reset;
         var callback = settings.callback || function() { };
+        var loaded   = settings.loaded || function() { };
         var onedit   = settings.onedit   || function() { }; 
         var onsubmit = settings.onsubmit || function() { };
         var onreset  = settings.onreset  || function() { };
@@ -249,6 +251,9 @@
 
                 /* Focus to first visible form element. */
                 $(':input:visible:enabled:first', form).focus();
+
+                // Add a callback on form focussing
+                loaded.apply(self, [$(':input:visible:enabled:first', form), settings]);
 
                 /* Highlight input contents when requested. */
                 if (settings.select) {
